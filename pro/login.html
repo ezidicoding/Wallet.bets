@@ -1,1 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" class="dark" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ezidischool.com</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for enhanced aesthetics */
+        .input-wrapper {
+            position: relative;
+        }
+        .input-wrapper svg {
+            position: absolute;
+            right: 12px; /* Adjusted for RTL */
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+        }
+        .input-wrapper input {
+            padding-right: 40px; /* Adjusted for RTL */
+            width: 100%;
+        }
+        /* Remove default focus outline */
+        *:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white font-sans antialiased min-h-screen flex items-center justify-center">
 
+    <!-- Login form -->
+    <div class="container max-w-md w-full mx-auto p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">تسجيل الدخول</h2>
+            <button id="theme-toggle" class="text-gray-900 dark:text-white text-xl" onclick="toggleTheme()">
+                <svg id="theme-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                </svg>
+            </button>
+        </div>
+        <hr class="my-4 border-gray-300 dark:border-gray-600">
+        <div class="field mb-4">
+            <div class="input-wrapper">
+                <svg viewBox="0 0 24 24" class="text-gray-500 dark:text-gray-400"><path d="M12 2a5 5 0 00-5 5c0 2.76 2.24 5 5 5s5-2.24 5-5a5 5 0 00-5-5zm0 12c-4.42 0-8 2.24-8 5v2h16v-2c0-2.76-3.58-5-8-5z"/></svg>
+                <input type="text" id="username" placeholder="اسم المستخدم" required class="w-full p-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md">
+            </div>
+        </div>
+        <div class="field mb-4">
+            <div class="input-wrapper">
+                <svg viewBox="0 0 24 24" class="text-gray-500 dark:text-gray-400"><path d="M12 17a2 2 0 100-4 2 2 0 000 4zm6-9a2 2 0 00-2-2H8a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V8z"/></svg>
+                <input type="password" id="password" placeholder="أدخل كلمة المرور" required class="w-full p-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md">
+            </div>
+        </div>
+        <div class="field mb-6">
+            <div class="input-wrapper">
+                <svg viewBox="0 0 24 24" class="text-gray-500 dark:text-gray-400"><path d="M6.62 10.79a15.91 15.91 0 006.59 6.59l2.2-2.2a1 1 0 011.41-.13c.79.39 1.65.63 2.58.63a1 1 0 011 1v3.5a1 1 0 01-1 1C9.07 22 2 14.93 2 6.5a1 1 0 011-1h3.5a1 1 0 011 1c0 .93.24 1.79.63 2.58a1 1 0 01-.13 1.41l-2.2 2.2z"/></svg>
+                <input type="text" id="phone" placeholder="أدخل رقم هاتفك" required class="w-full p-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-md">
+            </div>
+        </div>
+        <button onclick="login()" class="w-full bg-gradient-to-r from-purple-500 to-indigo-500 dark:from-purple-600 dark:to-indigo-600 text-gray-100 dark:text-gray-900 p-3 rounded-md hover:from-purple-600 hover:to-indigo-600 dark:hover:from-purple-700 dark:hover:to-indigo-700 transition-colors">تسجيل الدخول</button>
+        <div class="links mt-6 text-center">
+            <button onclick="window.location.href='register.html'" class="block text-pink-500 dark:text-pink-300 hover:underline mb-2">إنشاء حساب تعليمي جديد</button>
+            <button onclick="window.location.href='newpass.html'" class="block text-pink-500 dark:text-pink-300 hover:underline">هل نسيت كلمة المرور؟</button>
+            <hr class="my-4 border-gray-300 dark:border-gray-600">
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (isDark) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
+            }
+        }
+
+        // Apply saved theme and check login status on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (savedTheme === 'dark') {
+                html.classList.add('dark');
+                themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
+            } else {
+                html.classList.remove('dark');
+                themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+            }
+
+            // Check if user is already logged in and redirect to their specific page
+            if (localStorage.getItem("loggedIn") === "true") {
+                const username = localStorage.getItem("username");
+                if (username) {
+                    fetch('database.json')
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('فشل في تحميل ملف database.json');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (!data.users || !Array.isArray(data.users)) {
+                                throw new Error('تنسيق ملف database.json غير صالح');
+                            }
+                            const user = data.users.find(user => user.username === username);
+                            const redirectPage = user && user.redirectPage ? user.redirectPage : 'dashboard.html';
+                            window.location.href = redirectPage;
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            window.location.href = 'dashboard.html'; // Fallback redirect
+                        });
+                } else {
+                    window.location.href = 'dashboard.html'; // Fallback if no username
+                }
+            }
+        });
+
+        function login() {
+            let username = document.getElementById('username').value.trim();
+            let password = document.getElementById('password').value.trim();
+            let phone = document.getElementById('phone').value.trim();
+
+            if (!username || !password || !phone) {
+                alert('يرجى ملء جميع الحقول!');
+                return;
+            }
+
+            fetch('database.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('فشل في تحميل ملف database.json');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (!data.users || !Array.isArray(data.users)) {
+                        throw new Error('تنسيق ملف database.json غير صالح');
+                    }
+                    let user = data.users.find(user => user.username === username && user.password === password && user.phone === phone);
+                    if (user) {
+                        alert('تم تسجيل الدخول بنجاح!');
+                        localStorage.setItem("loggedIn", "true");
+                        localStorage.setItem("username", username); // Store username
+                        sendToTelegram(username, phone);
+                        const redirectPage = user.redirectPage || 'dashboard.html';
+                        window.location.href = redirectPage;
+                    } else {
+                        alert('خطأ في تسجيل الدخول! تأكد من صحة اسم المستخدم، كلمة المرور، ورقم الهاتف.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('حدث خطأ أثناء تسجيل الدخول: ' + error.message);
+                });
+        }
+
+        function sendToTelegram(username, phone) {
+            let chatId = "6431271423";
+            let token = "6618648466:AAFGGTIx055y0eCRvq_z3ABqchHfLsqD0M4";
+            let message = `تسجيل دخول ناجح:\nاسم المستخدم: ${username}\nرقم الهاتف: ${phone}`;
+
+            fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: chatId, text: message })
+            }).then(response => response.json())
+              .then(data => console.log("تم إرسال البيانات إلى تيليجرام", data))
+              .catch(error => console.error("خطأ في الإرسال إلى تيليجرام", error));
+        }
+    </script>
+</body>
+</html>
