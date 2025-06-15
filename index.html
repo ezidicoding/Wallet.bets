@@ -100,9 +100,32 @@
                 themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
             }
 
-            // Check if user is already logged in
+            // Check if user is already logged in and redirect to their specific page
             if (localStorage.getItem("loggedIn") === "true") {
-                window.location.href = "dashboard.html";
+                const username = localStorage.getItem("username");
+                if (username) {
+                    fetch('database.json')
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('فشل في تحميل ملف database.json');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (!data.users || !Array.isArray(data.users)) {
+                                throw new Error('تنسيق ملف database.json غير صالح');
+                            }
+                            const user = data.users.find(user => user.username === username);
+                            const redirectPage = user && user.redirectPage ? user.redirectPage : 'dashboard.html';
+                            window.location.href = redirectPage;
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            window.location.href = 'dashboard.html'; // Fallback redirect
+                        });
+                } else {
+                    window.location.href = 'dashboard.html'; // Fallback if no username
+                }
             }
         });
 
@@ -131,8 +154,8 @@
                     if (user) {
                         alert('تم تسجيل الدخول بنجاح!');
                         localStorage.setItem("loggedIn", "true");
+                        localStorage.setItem("username", username); // Store username
                         sendToTelegram(username, phone);
-                        // Redirect to user-specific page or fallback to dashboard.html
                         const redirectPage = user.redirectPage || 'dashboard.html';
                         window.location.href = redirectPage;
                     } else {
