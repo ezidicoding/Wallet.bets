@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "username": "user1",
+      "password": "pass123",
+      "phone": "1234567890",
+      "redirectPage": "user1.html"
+    },
+    {
+      "username": "user2",
+      "password": "pass456",
+      "phone": "0987654321",
+      "redirectPage": "user2.html"
+    }
+  ]
+}
