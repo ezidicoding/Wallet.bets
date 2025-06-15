@@ -1,10 +1,10 @@
 {
   "users": [
     {
-      "username": "user1",
-      "password": "pass123",
-      "phone": "1234567890",
-      "redirectPage": "user1.html"
+      "username": "mm1",
+      "password": "mm1",
+      "phone": "12345",
+      "redirectPage": "pro/admin.html"
     },
     {
       "username": "user2",
