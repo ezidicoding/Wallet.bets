@@ -7,10 +7,10 @@
       "redirectPage": "pro/admin.html"
     },
     {
-      "username": "user2",
-      "password": "pass456",
-      "phone": "0987654321",
-      "redirectPage": "user2.html"
+      "username": "mm2",
+      "password": "mm2",
+      "phone": "12345",
+      "redirectPage": "s1.html"
     }
   ]
 }
