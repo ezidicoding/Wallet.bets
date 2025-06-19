@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastPay Design</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for enhanced aesthetics */
+        .sidebar-menu {
+            transition: transform 0.3s ease;
+            transform: translateX(-100%);
+        }
+        .sidebar-menu.active {
+            transform: translateX(0);
+        }
+        .grid-item:hover {
+            transform: scale(1.05);
+            transition: transform 0.2s ease;
+        }
+        /* Remove default focus outline */
+        *:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white font-sans antialiased min-h-screen">
+
+    <!-- Top bar -->
+    <header class="bg-white dark:bg-gray-800 shadow-md flex justify-between items-center p-4">
+        <button class="text-2xl text-gray-900 dark:text-white" onclick="toggleMenu()">☰</button>
+        <div class="text-2xl font-bold text-gray-900 dark:text-gray-200">Wallet Bets</div>
+        <div class="flex items-center space-x-4">
+            <button id="theme-toggle" class="text-gray-900 dark:text-white text-xl" onclick="toggleTheme()">
+                <svg id="theme-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                </svg>
+            </button>
+            <select id="language-select" onchange="changeLanguage()" class="bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white p-2 rounded-md">
+                <option value="index-en.html">English</option>
+                <option value="index-ar.html">Arabic</option>
+                <option value="index-ku.html">Kurdish</option>
+            </select>
+        </div>
+    </header>
+
+    <!-- Sidebar menu -->
+    <div class="sidebar-menu fixed top-0 left-0 w-64 h-full bg-white dark:bg-black p-6 z-50" id="sidebar-menu">
+        <button class="bg-purple-500 dark:bg-purple-600 text-white px-4 py-2 rounded-md mb-6 hover:bg-purple-600 dark:hover:bg-purple-700" onclick="toggleMenu()">Close ✕</button>
+        <a href="#" class="block bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white py-3 px-4 rounded-md mb-3 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">Verification Account</a>
+        <a href="#" class="block bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white py-3 px-4 rounded-md mb-3 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">Tool 2</a>
+        <a href="#" class="block bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white py-3 px-4 rounded-md mb-3 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">Tool 3</a>
+        <button class="bg-purple-500 dark:bg-purple-600 text-white px-4 py-2 rounded-md mb-6 hover:bg-purple-600 dark:hover:bg-purple-700 w-full text-left" onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Balance section -->
+    <section class="bg-gradient-to-r from-purple-500 to-indigo-500 dark:from-purple-600 dark:to-indigo-600 p-6 flex justify-between items-center rounded-lg m-4 shadow-lg">
+        <div>
+            <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-100 dark:text-gray-900">Shahwan Namer</h2>
+            <h1 class="text-2xl font-bold text-gray-100 dark:text-gray-900" id="balance">€ 10,00</h1>
+            <p class="text-sm text-gray-100 dark:text-gray-900">My Wallet</p>
+        </div>
+        <button class="balance-refresh text-4xl text-gray-100 dark:text-gray-900 hover:text-gray-200 dark:hover:text-gray-200" id="refresh-button">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5m11 6v5h-5m0-5h-5m11-6V4h-5"></path>
+            </svg>
+        </button>
+    </section>
+
+    <!-- Service grid section -->
+    <section class="grid grid-cols-2 gap-4 p-4">
+        <div class="grid-item bg-white dark:bg-gray-800 p-4 rounded-xl text-center shadow-md hover:bg-gray-200 dark:hover:bg-gray-700">
+            <svg class="w-16 h-16 mx-auto mb-2 text-pink-500 dark:text-pink-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+            </svg>
+            <span class="text-pink-500 dark:text-pink-300">Deposit</span>
+        </div>
+        <div class="grid-item bg-white dark:bg-gray-800 p-4 rounded-xl text-center shadow-md hover:bg-gray-200 dark:hover:bg-gray-700">
+            <svg class="w-16 h-16 mx-auto mb-2 text-pink-500 dark:text-pink-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
+            </svg>
+            <span class="text-pink-500 dark:text-pink-300">Withdraw</span>
+        </div>
+        <div class="grid-item bg-white dark:bg-gray-800 p-4 rounded-xl text-center shadow-md hover:bg-gray-200 dark:hover:bg-gray-700">
+            <svg class="w-16 h-16 mx-auto mb-2 text-pink-500 dark:text-pink-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+            </svg>
+            <span class="text-pink-500 dark:text-pink-300">Send Money</span>
+        </div>
+        <div class="grid-item bg-white dark:bg-gray-800 p-4 rounded-xl text-center shadow-md hover:bg-gray-200 dark:hover:bg-gray-700">
+            <svg class="w-16 h-16 mx-auto mb-2 text-pink-500 dark:text-pink-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+            <span class="text-pink-500 dark:text-pink-300">Receive Money</span>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleMenu() {
+            const sidebarMenu = document.getElementById('sidebar-menu');
+            sidebarMenu.classList.toggle('active');
+        }
+
+        document.getElementById('refresh-button').addEventListener('click', function() {
+            alert('Balance refreshed!');
+        });
+
+        function changeLanguage() {
+            const language = document.getElementById('language-select').value;
+            window.location.href = language;
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (isDark) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('loggedIn');
+            localStorage.removeItem('username');
+            window.location.href = 'login.html';
+        }
+
+        // Apply saved theme on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (savedTheme === 'dark') {
+                html.classList.add('dark');
+                themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
+            } else {
+                html.classList.remove('dark');
+                themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+            }
+        });
+    </script>
+</body>
+</html>
